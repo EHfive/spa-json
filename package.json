@@ -1,0 +1,19 @@
+{
+  "name": "spa-json",
+  "version": "0.0.0",
+  "description": "parse and stringify PipeWire SPA(Simple Plugin API) JSON",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "author": {
+    "name": "Huang-Huang Bao",
+    "email": "eh5@eh5.me"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development node test/parse.mjs",
+    "test": "node test/parse.mjs"
+  },
+  "engines": {
+    "node": ">=12.0"
+  }
+}
