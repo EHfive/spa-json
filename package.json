@@ -2,17 +2,22 @@
   "name": "spa-json",
   "version": "0.0.0",
   "description": "parse and stringify PipeWire SPA(Simple Plugin API) JSON",
+  "type": "module",
   "main": "dist/spa-json.cjs",
   "module": "lib/index.mjs",
+  "exports": {
+    "import": "./lib/index.js",
+    "require": "./dist/spa-json.cjs"
+  },
+  "types": "lib/index.d.ts",
   "author": {
     "name": "Huang-Huang Bao",
     "email": "eh5@eh5.me"
   },
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development node test/parse.mjs",
-    "test": "node test/parse.mjs",
-    "prepublish": "esbuild lib/index.mjs --bundle --platform=node --outfile=dist/spa-json.cjs"
+    "test": "node test/parse.js",
+    "prepublish": "esbuild lib/index.js --bundle --platform=node --outfile=dist/spa-json.cjs"
   },
   "engines": {
     "node": ">=12.0"

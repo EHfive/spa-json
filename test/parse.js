@@ -1,6 +1,6 @@
 import assert from 'assert'
 import { readFileSync } from 'fs'
-import { parse } from '../lib/index.mjs'
+import { parse } from '../lib/index.js'
 
 assert.equal(parse('# line comment \na'), 'a')
 

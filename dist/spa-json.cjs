@@ -6,14 +6,14 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// lib/index.mjs
+// lib/index.js
 __export(exports, {
   default: () => lib_default,
   parse: () => parse_default,
   stringify: () => stringify_default
 });
 
-// lib/parse.mjs
+// lib/parse.js
 var s = {
   STRUCT: Symbol("STRUCT"),
   BARE: Symbol("BARE"),
@@ -171,8 +171,6 @@ var ParserError = class extends Error {
 };
 var Parser = class {
   _lexer;
-  _stack = [];
-  _metaStack = [];
   _token = null;
   constructor(str) {
     this._lexer = new Lexer(str && str.toString());
@@ -271,14 +269,14 @@ function parse(str) {
 }
 var parse_default = parse;
 
-// lib/stringify.mjs
+// lib/stringify.js
 function stringify() {
   console.warn("warn: stringify() is not implmented yet, fallback to JSON.stringify()");
   return JSON.stringify.apply(null, arguments);
 }
 var stringify_default = stringify;
 
-// lib/index.mjs
+// lib/index.js
 var SPAJSON = {
   parse: parse_default,
   stringify: stringify_default
