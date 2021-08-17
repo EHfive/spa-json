@@ -4,7 +4,7 @@
   "description": "parse and stringify PipeWire SPA(Simple Plugin API) JSON",
   "type": "module",
   "main": "dist/spa-json.cjs",
-  "module": "lib/index.mjs",
+  "module": "lib/index.js",
   "exports": {
     "import": "./lib/index.js",
     "require": "./dist/spa-json.cjs"
@@ -15,6 +15,7 @@
     "email": "eh5@eh5.me"
   },
   "license": "MIT",
+  "repository": "github:EHfive/spa-json",
   "scripts": {
     "test": "node test/parse.js",
     "prepublish": "esbuild lib/index.js --bundle --platform=node --outfile=dist/spa-json.cjs"

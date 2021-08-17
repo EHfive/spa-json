@@ -1,6 +1,6 @@
 # SPA JSON
 
-PipeWire SPA(Simple Plugin API) JSON in Javascipt
+PipeWire SPA(Simple Plugin API) JSON in JavaScipt
 
 ## Usage
 

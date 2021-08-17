@@ -1,11 +1,11 @@
 interface SPAJSON {
   parse(text: string): any
-  export stringify(
+  stringify(
     value: any,
     replacer?: (this: any, key: string, value: any) => any,
     space?: string | number
   ): string
-  export stringify(
+  stringify(
     value: any,
     replacer?: (number | string)[] | null,
     space?: string | number

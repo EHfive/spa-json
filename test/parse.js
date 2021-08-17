@@ -52,5 +52,3 @@ function nest(level) {
 }
 
 // parse(JSON.stringify(nest(5494)))
-
-JSON.parse(JSON.stringify(nest(6000)))
