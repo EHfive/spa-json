@@ -32,6 +32,15 @@ assert.deepEqual(parse('{ a { b = [ c: { d 1 } f ] } }'), {
   a: { b: ['c', { d: 1 }, 'f'] },
 })
 
+var reviver = function (key, value) {
+  assert(key in this)
+  return key === 'd' ? null : value
+}
+
+assert.deepEqual(parse('{ a { b = [ c: { d 1 } f ] } }', reviver), {
+  a: { b: ['c', { d: null }, 'f'] },
+})
+
 // native JSON
 const obj = { a: { b: ['c', { d: 1 }, 'f'] } }
 assert.deepEqual(parse(JSON.stringify(obj)), obj)
