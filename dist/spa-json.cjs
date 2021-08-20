@@ -285,8 +285,10 @@ function stringify(value, replacer, space, noWrap) {
   let text = "";
   let stack = [{ type: t.VALUE, key: void 0, value, level: noWrap ? -1 : 0 }];
   let next;
+  const objMap = new WeakSet();
   if (typeof replacer === "function") {
     replacerFunc = replacer;
+    value = replacerFunc.call({ "": value }, "", value);
   } else if (Array.isArray(replacer)) {
     const replacerSet = new Set();
     for (let i of replacer) {
@@ -303,26 +305,38 @@ function stringify(value, replacer, space, noWrap) {
     if (next.level > 0) {
       text += " ".repeat(next.level * space);
     }
-    if (next.key) {
-      text += next.key + " = ";
-    }
     if (next.type === t.TEXT) {
       text += next.value;
     } else if (next.type === t.VALUE) {
+      if (next.key) {
+        text += next.key + " = ";
+      }
       if (typeof next.value !== "object") {
-        text += JSON.stringify(next.value) + "\n";
+        let str = JSON.stringify(next.value);
+        if (str === `"${next.value}"`) {
+          str = next.value;
+        }
+        text += str + "\n";
+        continue;
       } else if (next.value === null) {
         text += "null\n";
-      } else if (typeof next.value.toJSON === "function") {
+        continue;
+      }
+      if (objMap.has(next.value)) {
+        throw new TypeError("Converting circular structure to JSON");
+      }
+      objMap.add(next.value);
+      if (typeof next.value.toJSON === "function") {
         text += next.value.toJSON(next.key);
       } else if (Array.isArray(next.value)) {
         if (next.value.length) {
           const itemLevel = next.level + 1;
           stack.push({ type: t.TEXT, value: "]\n", level: next.level });
           for (let i = next.value.length - 1; i >= 0; --i) {
+            const itemValue = replacerFunc ? replacerFunc.call(next.value, i, next.value[i]) : next.value[i];
             stack.push({
               type: t.VALUE,
-              value: isUndefined(next.value[i]) ? null : next.value[i],
+              value: isUndefined(itemValue) ? null : itemValue,
               level: itemLevel
             });
           }
@@ -350,7 +364,7 @@ function stringify(value, replacer, space, noWrap) {
           if (next.level >= 0) {
             stack.push({ type: t.TEXT, value: "}\n", level: next.level });
           }
-          stack = [].concat(stack, _stack);
+          stack = stack.concat(_stack);
           if (next.level >= 0) {
             stack.push({
               type: t.TEXT,
@@ -367,7 +381,7 @@ function stringify(value, replacer, space, noWrap) {
         }
       }
     } else {
-      throw new TypeError();
+      throw new TypeError("Should not reach");
     }
   }
   return text;

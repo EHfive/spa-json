@@ -24,7 +24,7 @@ assert.equal(
 //
 function replacer(key, value) {
   assert(key in this)
-  return key !== 'skipped' ? value : undefined
+  return key !== 'skipped' && +key !== 1 ? value : undefined
 }
 
 var text = stringify(
@@ -42,7 +42,7 @@ var expected = `\
   a = 1
   b = [
     1
-    2
+    null
     null
     {
       c = false
@@ -107,6 +107,20 @@ assert.equal(text, expected)
 assert.deepEqual(parse(text), confObj)
 
 assert.deepEqual(parse(text), parse(confText))
+
+//
+// Throws on circular structure
+//
+var circular = {}
+
+circular.nested = {
+  circular,
+}
+
+assert.throws(
+  () => stringify(circular),
+  /Converting circular structure to JSON$/
+)
 
 function nest(level) {
   const root = []
