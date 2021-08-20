@@ -3,12 +3,14 @@ interface SPAJSON {
   stringify(
     value: any,
     replacer?: (this: any, key: string, value: any) => any,
-    space?: string | number
+    space?: string | number,
+    noWrap?: boolean
   ): string
   stringify(
     value: any,
     replacer?: (number | string)[] | null,
-    space?: string | number
+    space?: string | number,
+    noWrap?: boolean
   ): string
 }
 
