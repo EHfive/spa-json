@@ -26,5 +26,8 @@
   "devDependencies": {
     "@types/node": "^16.6.1",
     "esbuild": "^0.12.20"
-  }
+  },
+  "files": [
+    "{bin,dist,lib}/**/*"
+  ]
 }
