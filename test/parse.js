@@ -20,6 +20,7 @@ assert.equal(parse(' 1\\\\abc$ '), '1\\\\abc$')
 
 // escape
 assert.equal(parse('"\\\\"'), '\\')
+assert.equal(parse('"\\"abc\\""'), '"abc"')
 
 // top-level array
 assert.deepEqual(parse('[{ a, 1 b=2 c:3, d 4, 1 2 }, str]'), [
