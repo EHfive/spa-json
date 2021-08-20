@@ -1,6 +1,11 @@
 import assert from 'assert'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { readFileSync } from 'fs'
 import { parse } from '../lib/index.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 assert.equal(parse('# line comment \na'), 'a')
 
@@ -31,7 +36,7 @@ assert.deepEqual(parse('{ a { b = [ c: { d 1 } f ] } }'), {
 const obj = { a: { b: ['c', { d: 1 }, 'f'] } }
 assert.deepEqual(parse(JSON.stringify(obj)), obj)
 
-const conf = readFileSync('./test/pipewire.conf')
+const conf = readFileSync(path.join(__dirname, 'pipewire.conf'))
 
 console.time('parse conf')
 
@@ -39,7 +44,10 @@ const confObj = parse(conf)
 
 console.timeEnd('parse conf')
 
-assert.deepEqual(confObj, JSON.parse(readFileSync('./test/pipewire.conf.json')))
+assert.deepEqual(
+  confObj,
+  JSON.parse(readFileSync(path.join(__dirname, 'pipewire.conf.json')))
+)
 
 function nest(level) {
   const root = []

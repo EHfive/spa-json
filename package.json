@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": "github:EHfive/spa-json",
   "scripts": {
-    "test": "node test/parse.js",
+    "test": "node test/index.js",
     "prepublish": "esbuild lib/index.js --bundle --platform=node --outfile=dist/spa-json.cjs"
   },
   "engines": {
