@@ -1,6 +1,6 @@
 {
   "name": "spa-json",
-  "version": "0.0.0-pre1",
+  "version": "0.1.0-pre1",
   "description": "parse and stringify PipeWire SPA(Simple Plugin API) JSON",
   "type": "module",
   "main": "dist/spa-json.cjs",
