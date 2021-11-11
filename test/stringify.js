@@ -32,6 +32,7 @@ var text = stringify(
     a: 1,
     skipped: 'skipped',
     b: [1, 2, undefined, { c: false, skipped: 'skipped' }],
+    'a:b:c': 'd',
   },
   replacer,
   2
@@ -48,6 +49,7 @@ var expected = `\
       c = false
     }
   ]
+  "a:b:c" = d
 }
 `
 
